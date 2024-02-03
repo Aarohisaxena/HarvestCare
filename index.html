@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>HarvestCare</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/jquery-1.7.1.min.js"></script>
+  <script src="js/superfish.js"></script>
+  <script src="js/jquery.easing.1.3.js"></script>
+  <script src="js/tms-0.4.1.js"></script>
+  <script src="js/slider.js"></script>
+  <!--[if lt IE 9]>
+<script src="js/html5.js"></script>
+<link rel="stylesheet" href="css/ie.css"> 
+<![endif]-->
+</head>
+
+<body>
+  <div class="main-bg">
+    <!-- Header -->
+    <header>
+      <div class="inner">
+        <h1><a href="index.html">HarvestCare </a></h1>
+        <nav>
+          <ul class="sf-menu">
+            <li class="current"><a href="index.html">home</a></li>
+
+            <li> <a href="#">Go green</a>
+              <ul>
+                <li><a href="#">Crop Rotation</a></li>
+                <li><a href="#">Mulching</a></li>
+                <li> <a href="#">Composting</a>
+                  <ul>
+                    <li><a href="#">Biological Pest Control</a></li>
+                    <li><a href="#">Cover Cropping</a></li>
+                  </ul>
+                </li>
+                <li><a href="#">Water Conservation Techniques</a></li>
+              </ul>
+            </li>
+            <li><a href="#">NGOs collaboration</a></li>
+            <li><a href="contacts.html">contacts</a></li>
+          </ul>
+        </nav>
+        <div class="clear"></div>
+      </div>
+      <div class="slider-container">
+        <div class="mp-slider">
+          <ul class="items">
+            <li><img src="images/slide-1.jpeg" alt="">
+              <div class="banner mp-ban-1"><span class="row-1">putting our</span><span class="row-2">heart &amp;
+                  soul</span><span class="row-3">into the field of innovation</span></div>
+            </li>
+            <li><img src="images/slide-2.jpg" alt="">
+              <div class="banner mp-ban-2"><span class="row-1">we have a strong</span><span
+                  class="row-2">agriculture</span><span class="row-3">heritage</span></div>
+            </li>
+            <li><img src="images/slide-3.jpg" alt="">
+              <div class="banner mp-ban-3"><span class="row-1">we protect your crops</span><span class="row-2">and
+                  hardwork</span><span class="row-3">for tomorrow</span></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <a href="#" class="mp-prev"></a> <a href="#" class="mp-next"></a>
+    </header>
+    <!-- Content -->
+    <section id="content">
+      <div class="container_24">
+        <div class="wrapper">
+          <div class="grid_24 content-bg">
+            <div class="wrapper">
+              <div class="grid_16 suffix_1 prefix_1 alpha">
+                <article class="indent-bot">
+                  <h2>Different Types of Crop diseases</h2>
+                  <div class="wrapper hr-border-1">
+                    <div class="grid_4 alpha"> <img
+                        src="https://blogs.cornell.edu/livegpath/files/2019/09/tomato-early-blight2x2400.jpg"
+                        height="120px" width="150px" img-indent-bot" alt="">
+                      <dl class="def-list-1">
+                        <dt> <a href="#">Tomatoes Early Blight</a> </dt>
+                        <dd> Vivamus hendrerit mauris ut du gravida ut viverra lectus tincidunt. </dd>
+                      </dl>
+                    </div>
+                    <div class="grid_4"> <img
+                        src="http://4.bp.blogspot.com/-7VnaDiXotUg/Utk8GFqc4vI/AAAAAAAAWbU/5gWIkaSdYlA/s1600/toma_TMV.jpg"
+                        height="120px" width="150px" class="img-indent-bot" alt="">
+                      <dl class="def-list-1">
+                        <dt> <a href="#"></a>Tomatoes mosaic virus </dt>
+                        <dd> Vivamus hendrerit mauris ut du gravida ut viverra lectus tincidunt. </dd>
+                      </dl>
+                    </div>
+                    <div class="grid_4"> <img
+                        src="https://tse3.mm.bing.net/th?id=OIP._E4WHkBz3jxFNsYjHFQiGQHaJ4&pid=Api&P=0&h=180"
+                        height="120px" width="150px" class="img-indent-bot" alt="">
+                      <dl class="def-list-1">
+                        <dt> <a href="#">Leaf Mold</a> </dt>
+                        <dd> Vivamus hendrerit mauris ut du gravida ut viverra lectus tincidunt. </dd>
+                      </dl>
+                    </div>
+                    <div class="grid_4 omega"> <img
+                        src="https://horticulture.co.uk/wp-content/uploads/2020/12/potatoblight-header.jpg"
+                        height="120px" width="150px" class="img-indent-bot" alt="">
+                      <dl class="def-list-1">
+                        <dt> <a href="#">Potatoes Early Blight</a> </dt>
+                        <dd> Vivamus hendrerit mauris ut du gravida ut viverra lectus tincidunt. </dd>
+                      </dl>
+                    </div>
+                  </div>
+                  <div class="alignright"> <a href="#" class="button">Read more</a> </div>
+                </article>
+                <hr>
+                <div>
+      
+                  <h1 text-align ="center">Crop Disease Detection</h1>
+                  <br>
+                  <form id="uploadForm" enctype="multipart/form-data">
+                    <input type="file" name="file" id="fileInput">
+                    <button type="button" onclick="uploadImage()">Predict</button>
+                  </form>
+                  <div id="result"></div>
+
+                  <script>
+                    function uploadImage() {
+                      let fileInput = document.getElementById('fileInput');
+                      let file = fileInput.files[0];
+                      let formData = new FormData();
+                      formData.append('file', file);
+
+                      fetch('/upload', {
+                        method: 'POST',
+                        body: formData
+                      })
+                        .then(response => response.json())
+                        .then(data => {
+                          document.getElementById('result').innerText = `Predicted Disease: ${data.result}`;
+                        })
+                        .catch(error => console.error('Error:', error));
+                    }
+                  </script>
+
+
+                </div>
+                <br>
+                <article class="banner-box">
+                  <div class="inner">
+                    <h3>Need a useful advice from an expert?</h3>
+                    <h4>we want to protect your crops!</h4>
+                    <blockquote class="quote indent-right"> <strong>This website lets you predict the crop diseases jus
+                        by uploading a picture.</strong>This website makes use of deep learning algorithms like CNN to
+                      detect a disease and also provides some suggestions for enhancing your farming techniques.
+                    </blockquote>
+                    <div class="alignright indent-right"> <span class="author">Expert<i></i></span> </div>
+                  </div>
+                  <img src="images/banner-box-img.png" alt="" class="banner-box-img">
+                </article>
+              </div>
+              <div class="grid_5 suffix_1 omega">
+                <article class="indent-bot-1">
+                  <h2 class="heading-1">Welcome!</h2>
+                  <p class="p1"> <strong> HarvestCare is a website that enables you to detect different crop diseases
+                      developed for farmers by HarvestCare.com </strong> </p>
+                  <p class="hr-border-1">HarvestCare is a free website that provides you a platform to detect crop
+                    diseasesjust by uploading a picture and then make the use of Deep learning algorithms.</p>
+                  <div class="alignright"> <a href="#" class="button">Read more</a> </div>
+                </article>
+                <article>
+                  <h2>Our programs:</h2>
+                  <ul class="list-1">
+                    <li><a href="#">Agronomic Practices</a></li>
+                    <li><a href="#">Biotechnology</a></li>
+                    <li><a href="#">Biotechnology Research</a></li>
+                    <li><a href="#">Benefits of Biotechnology</a></li>
+                    <li><a href="#">The Regulatory Process</a></li>
+                    <li><a href="#">Breeding</a></li>
+                    <li><a href="#">Learning Centers</a></li>
+                  </ul>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer>
+      <div class="container_24">
+        <div class="wrapper">
+          <div class="grid_24 footer-bg">
+            <div class="hr-border-2"></div>
+            <div class="wrapper">
+              <div class="grid_7 suffix_1 prefix_1 alpha">
+                <div class="copyright"> &copy; 2023 <strong class="footer-logo">HarvestCare</strong>
+                  <div>Crop disease detection<a target="_blank" href="http://www.harvestcare.com/">HarvestCare.com</a>
+                  </div>
+                </div>
+              </div>
+              <div class="grid_4">
+                <h5 class="heading-1">Archives:</h5>
+                <ul class="footer-list">
+                  <li><a href="#">October 2023</a></li>
+                  <li><a href="#">September 2023</a></li>
+                  <li><a href="#">August 2023</a></li>
+                  <li><a href="#">July 2023</a></li>
+                </ul>
+              </div>
+              <div class="grid_4">
+                <h5 class="heading-1">Links:</h5>
+                <ul class="footer-list">
+                  <li><a href="#">Documentation</a></li>
+                  <li><a href="#">Plugins</a></li>
+                  <li><a href="#">Suggest Ideas</a></li>
+                  <li><a href="#">Support Forum</a></li>
+                </ul>
+              </div>
+              <div class="grid_4">
+                <h5 class="heading-1">Support:</h5>
+                <ul class="footer-list">
+                  <li><a href="#">Special Proposition</a></li>
+                  <li><a href="#">Free Phone</a></li>
+                  <li><a href="#">Solutions</a></li>
+                </ul>
+              </div>
+              <div class="grid_2 suffix_1 omega">
+                <ul class="social-list">
+                  <li><a href="#"><img src="images/social-icon-1.png" alt=""></a></li>
+                  <li><a href="#"><img src="images/social-icon-2.png" alt=""></a></li>
+                  <li><a href="#"><img src="images/social-icon-3.png" alt=""></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+
+</html>
